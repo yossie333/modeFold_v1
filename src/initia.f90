@@ -35,5 +35,6 @@ subroutine initia
         enddo
 
         Ug(1) = 0.d0
+        minHarea(1) = 0.d0
 
 end subroutine initia

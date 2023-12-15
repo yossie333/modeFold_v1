@@ -21,7 +21,7 @@ subroutine readVTK
         use variMode
         implicit none
         integer i,j,iunit,itmp(4),imode
-        double precision mtmp(3)
+        double precision mtmp(3),cj
         character(80)tmp
 
         iunit = 10
@@ -113,15 +113,23 @@ subroutine readVTK
            enddo
            read(iunit,'(A)')tmp
         enddo
+
+        !lumped mass for each point
+        mass = mass / nop
         
         mmax=maxval(mode)
         write(*,*)"max mode value",mmax
         !normalizing
         do imode=1,nmode
+           cj = 0.d0
            do i=1,nop
-              mode(1,i,imode)=mode(1,i,imode)/mmax
-              mode(2,i,imode)=mode(2,i,imode)/mmax
-              mode(3,i,imode)=mode(3,i,imode)/mmax
+              cj = cj + mode(1,i,imode)**2+mode(2,i,imode)**2+mode(3,i,imode)**2
+           enddo
+           cj = 1.d0/(sqrt(mass*cj))
+           do i=1,nop
+              mode(1,i,imode)=mode(1,i,imode)*cj
+              mode(2,i,imode)=mode(2,i,imode)*cj
+              mode(3,i,imode)=mode(3,i,imode)*cj
            enddo
         enddo
 

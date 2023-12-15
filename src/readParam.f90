@@ -48,7 +48,7 @@ subroutine readParam
         write(*,'(A)')tmp
         read(iunit,*)nstep
         write(*,'(I8)')nstep
-        allocate(Ug(nstep))
+        allocate(Ug(nstep),minHarea(nstep))
         
         read(iunit,'(A)')tmp
         write(*,'(A)')tmp
@@ -143,8 +143,8 @@ subroutine readParam
 
             read(iunit,'(A)')tmp
             write(*,'(A)')tmp
-            read(iunit,*)ha
-            write(*,*)ha
+            read(iunit,*)mass
+            write(*,*)mass
         endif
 
         close(iunit)

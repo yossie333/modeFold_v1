@@ -10,7 +10,7 @@ module variMode
         !readParam
         integer nmode,iforce,nstep,nwrite
         double precision pi,forcef,famp,dt,zeta
-        double precision rho,Ps,ha,mu
+        double precision rho,Ps,mu,mass
         double precision, allocatable :: Ug(:)
         character(80) ffreq,fmode,fsurf,idir,rdir
 
@@ -32,9 +32,9 @@ module variMode
 
         !surfArea
         integer nsep,nxsup
-        double precision minHarea,xsup,ymid
+        double precision xsup,ymid
         double precision, allocatable:: psurf(:),sarea(:,:),harea(:)
-        double precision, allocatable:: degree(:,:,:)
+        double precision, allocatable:: degree(:,:,:),minHarea(:)
 
         !initia
         double precision, allocatable:: fi(:),qi(:),qidot(:)

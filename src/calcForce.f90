@@ -13,16 +13,16 @@ subroutine calcForce(t,n)
 ! famp   :  amplitude of sin wave
 ! forcef :  frequency of the sin wave
 ! t      :  current time (input)
+! n      :  current step (input)
 !
 ! iforce = 2: force is calculated from the 1D flow equations.
 ! The equations are mainly based on Pelorson et al., (1994).
 ! The glottal flowrate was simply calculated from the minimum area
 ! minHarea : the minimum area for flow channel.
-! Ps       : subglottal pressure
-! Ug(n)    : glottal flow at n step 
-! rho      : density of air
+! Ps       : subglottal pressure (Pa)
+! Ug(n)    : glottal flow at n step (cm3/s) 
+! rho      : density of air (kg/m3)
 ! psurf    : pressure distribution along the surface
-! ha       : coefficient to match the non-dimensionality
 !*******************************************************************
         use variMode
         implicit none
@@ -43,7 +43,7 @@ subroutine calcForce(t,n)
         enddo
 
         if (iforce .eq. 1)then
-                minHarea = minval(harea)
+                minHarea(n) = minval(harea)
 
                 do i=1,nsurfl
                     do j=1,nsurfz
@@ -56,27 +56,28 @@ subroutine calcForce(t,n)
         elseif(iforce .eq. 0 )then
 
                 !separation point
-                minHarea = minval(harea)
+                minHarea(n) = minval(harea)
                 do i=2,nxsup
-                    if(harea(i) .eq. minHarea .or. harea(i).le.0.d0)then
+                    if(harea(i) .eq. minHarea(n) .or. harea(i).le.0.d0)then
                             nsep = i
                             exit
                     endif
                 enddo
 
-                if(minHarea .gt. 0.d0)then
+                if(minHarea(n) .gt. 0.d0)then
                     !Ug(n) = sqrt(2.d0*Ps/rho)*minHarea*tanh(ha*minHarea)
-                    Ug(n) = sqrt(2.d0*Ps/rho)*minHarea
+                    Ug(n) = sqrt(2.d0*Ps/rho)*minHarea(n)
                 else
                     Ug(n) = 0.d0
                 endif
 
                 psurf(1:nxsup)=0.d0
                 psurf(1) = Ps 
-                if (minHarea .gt. 0.d0)then
+                if (minHarea(n) .gt. 0.d0)then
                     do i=2,nsep
                         dx = x(surfp(i,j)+1)-x(surfp(i-1,j)+1)
                         h = (harea(i)+harea(i-1))/(2.d0*zmax)
+                        !surface pressure (Pa)
                         psurf(i) = psurf(i-1) + 0.5d0*rho*Ug(n)**2*(1.d0/harea(i-1)**2-1.d0/harea(i)**2)&
                                               - 12.d0*mu*dx/(zmax*h**3)*Ug(n)*1000.d0
                     enddo
@@ -89,9 +90,9 @@ subroutine calcForce(t,n)
                 do i=2,nsep-1
                     do j=2,nsurfz-1
                        !Pa to N (mm2 -> m2)
-                       fx(i,j)=psurf(i)*sarea(i,j)/1000000.d0*cos(degree(2,i,j))*sin(degree(1,i,j))*ha
-                       fy(i,j)=-psurf(i)*sarea(i,j)/1000000.d0*cos(degree(2,i,j))*cos(degree(1,i,j))*ha
-                       fz(i,j)=psurf(i)*sarea(i,j)/1000000.d0*sin(degree(2,i,j))*ha
+                       fx(i,j)=psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*sin(degree(1,i,j))
+                       fy(i,j)=-psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*cos(degree(1,i,j))
+                       fz(i,j)=psurf(i)*sarea(i,j)*1.d-6*sin(degree(2,i,j))
                     enddo
                 enddo
 

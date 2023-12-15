@@ -10,8 +10,8 @@ program main
 !
 ! In this version, the author confirmed that the result is quite
 ! similar to the experiment by Kanaya et al., (2022) JASA-EL,
-! when Ps = 2900 Pa, zeta = 0.06, kc1 = 9.0E-3, kc2 = 6.0E+0.
-! The results showed f0 = 122.5 Hz, mean Ug = 97.26 L/min.
+! when Ps = 2900 Pa, zeta = 0.06, kc1 = 9.0, kc2 = 6000.
+! The results showed f0 = 121.9 Hz, mean Ug = 81.0785 L/min.
 ! The displacement image was similar to Fig. 3.
 !
 ! Input files: Parameter file (param.txt)
@@ -19,7 +19,7 @@ program main
 !                            (frequency text)
 !              Surface point list (surface.txt)
 ! Output files: Shape files (result/deform***.vtu)
-!               flowrate (result/flowrate.txt)
+!               area and flowrate (result/flowrate.txt)
 !   
 ! Module file: variMode
 !*******************************************************************
@@ -53,7 +53,7 @@ program main
           call step(istep)
 
           if (mod(istep,nwrite).eq.0)then             
-              write(*,*)"MinArea: ",minHarea,",  Ug: ",Ug(istep)
+              write(*,*)"MinArea: ",minHarea(istep),",  Ug: ",Ug(istep)
               call writeVTK(istep/nwrite)
           endif
 

@@ -45,9 +45,9 @@ subroutine step(istep)
            call mode2uf
 
            !calculate disspation force for contact
-           contactflg=0
-           call calcDis
-           if (contactflg .eq. 0) exit
+            contactflg=0
+            call calcDis
+            if (contactflg .eq. 0) exit
         enddo
 
         !store old and replace displacement

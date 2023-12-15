@@ -1,4 +1,4 @@
-# parameters for 3D vocal fold model
+# parameters for 3D vocal fold model ver1.0
 # number of modes
 20
 # number of points along z-axis(nsurfz)
@@ -11,8 +11,8 @@
 1.0E-5
 # damping coefficient zeta
 0.06
-# contact coefficients kc1 and kc2 (N / mm*rad)
-9.000E-3    6.0000E+0  
+# contact coefficients kc1 and kc2 (Pa / m*rad)
+9.0000E+0    6.0000E+3  
 # max iteration for contact calculation
 100
 # filename for eigenmode frequencies
@@ -33,15 +33,15 @@ result
 1.13
 # air viscousity (Pa s)
 1.80000E-5
-# coefficient for force ha
-9000000
+# mass of vocal fold (kg)
+1.0425E-3
+
 
 
 # kind of external force (iforce)
 1
 # frequency for external force (iforce=1)
 100
-# amplitude for force5000000000000
-2500
-
+# amplitude for force
+0.001
 

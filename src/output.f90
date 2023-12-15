@@ -18,8 +18,9 @@ subroutine output
 
       open(iunit,file=filename,status="replace")
 
+      !output time(s), minimum area (mm2), flowrate (cm3/s)
          do i=1,nstep
-           write(10,'(2E17.7)')dt*dble(i),Ug(i)
+           write(10,'(3E17.7)')dt*dble(i),minHarea(i),Ug(i)
          enddo
 
       close(iunit)
