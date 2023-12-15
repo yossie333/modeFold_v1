@@ -117,8 +117,6 @@ subroutine readVTK
         !lumped mass for each point
         mass = mass / nop
         
-        mmax=maxval(mode)
-        write(*,*)"max mode value",mmax
         !normalizing
         do imode=1,nmode
            cj = 0.d0
