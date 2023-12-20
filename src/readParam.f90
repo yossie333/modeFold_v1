@@ -140,12 +140,12 @@ subroutine readParam
             write(*,'(A)')tmp
             read(iunit,*)mu
             write(*,*)mu
+        endif
 
             read(iunit,'(A)')tmp
             write(*,'(A)')tmp
             read(iunit,*)mass
             write(*,*)mass
-        endif
 
         close(iunit)
 

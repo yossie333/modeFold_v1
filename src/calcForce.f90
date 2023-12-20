@@ -49,10 +49,10 @@ subroutine calcForce(t,n)
                     do j=1,nsurfz
                        !fx(i,j)=famp*sin(2*pi*forcef*t)
                        fy(i,j)=famp*sin(2.d0*pi*forcef*t)
+                       !fy(i,j)=famp
                        !fz(i,j)=famp*sin(2*pi*forcef*t)
                     enddo
                 enddo
-
         elseif(iforce .eq. 0 )then
 
                 !separation point
