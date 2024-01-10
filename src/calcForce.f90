@@ -28,6 +28,7 @@ subroutine calcForce(t,n)
         implicit none
         integer i,j,n
         double precision t,dx,h
+        double precision ds,dy,dz
 
         do i=1,nsurfl
             do j=1,nsurfz
@@ -63,6 +64,7 @@ subroutine calcForce(t,n)
                             exit
                     endif
                 enddo
+                !write(*,*)"nsep",nsep
 
                 if(minHarea(n) .gt. 0.d0)then
                     !Ug(n) = sqrt(2.d0*Ps/rho)*minHarea*tanh(ha*minHarea)
@@ -89,10 +91,18 @@ subroutine calcForce(t,n)
 
                 do i=2,nsep-1
                     do j=2,nsurfz-1
+                       dx = 0.5d0*(u(surfp(i+1,j)+1)-u(surfp(i-1,j)+1))
+                       dy = 0.5d0*(v(surfp(i+1,j)+1)-v(surfp(i-1,j)+1))
+                       ds = sqrt(dx**2 + dy**2)
+                       dz = 0.5d0*(w(surfp(i,j+1)+1)-w(surfp(i,j-1)+1))
+
                        !Pa to N (mm2 -> m2)
-                       fx(i,j)=psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*sin(degree(1,i,j))
-                       fy(i,j)=-psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*cos(degree(1,i,j))
-                       fz(i,j)=psurf(i)*sarea(i,j)*1.d-6*sin(degree(2,i,j))
+                       fx(i,j)=psurf(i)*ds*dz*1.d-6*cos(degree(2,i,j))*sin(degree(1,i,j))
+                       fy(i,j)=-psurf(i)*ds*dz*1.d-6*cos(degree(2,i,j))*cos(degree(1,i,j))
+                       fz(i,j)=psurf(i)*ds*dz*1.d-6*sin(degree(2,i,j))
+                       !fx(i,j)=psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*sin(degree(1,i,j))
+                       !fy(i,j)=-psurf(i)*sarea(i,j)*1.d-6*cos(degree(2,i,j))*cos(degree(1,i,j))
+                       !fz(i,j)=psurf(i)*sarea(i,j)*1.d-6*sin(degree(2,i,j))
                     enddo
                 enddo
 

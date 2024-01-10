@@ -11,7 +11,7 @@ program main
 ! In this version, the author confirmed that the result is quite
 ! similar to the experiment by Kanaya et al., (2022) JASA-EL,
 ! when Ps = 2900 Pa, zeta = 0.06, kc1 = 9.0, kc2 = 6000.
-! The results showed f0 = 121.9 Hz, mean Ug = 81.0785 L/min.
+! The results showed f0 = 127.7 Hz, mean Ug = 82.2 L/min.
 ! The displacement image was similar to Fig. 3.
 !
 ! Input files: Parameter file (param.txt)
