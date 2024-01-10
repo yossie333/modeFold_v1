@@ -12,8 +12,8 @@ The first program for vocal fold oscillation simulations based on the eigenmode 
  
    In this version, the author confirmed that the result is quite
    similar to the experiment by Kanaya et al., (2022) JASA-EL,
-   when Ps = 2900 Pa, zeta = 0.06, kc1 = 9.0E-3, kc2 = 6.0E+0.
-   The results showed f0 = 122.5 Hz, mean Ug = 97.26 L/min.
+   when Ps = 2900 Pa, zeta = 0.01, kc1 = 9.0E-3, kc2 = 6.0E+0.
+   The results showed f0 = 127.7 Hz, mean Ug = 82.2 L/min.
    The displacement image was similar to Fig. 3.
  
    Input files: Parameter file (param.txt)
